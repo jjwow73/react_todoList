@@ -1,6 +1,33 @@
-import React, { Component } from 'react';
+import React, {useMemo} from 'react';
 import TodoItem from './TodoItem';
 
+const makeTodoList = ({todos, onToggle, onRemove}) => {
+    console.log('TodoList 갱신');
+    return todos.map(
+        ({id, text, checked, color}) =>(
+            <TodoItem
+                id={id}
+                text={text}
+                checked={checked}
+                color={color}
+                onToggle={onToggle}
+                onRemove={onRemove}
+                key={id}
+            />
+        )  
+    );
+}
+
+const TodoItemList = ({todos, onToggle, onRemove}) => {
+
+    const todoList = useMemo(() => makeTodoList({todos, onToggle, onRemove}), [todos, onToggle, onRemove]);
+    return (
+        <div>
+            {todoList}
+        </div>
+    )
+}
+/*
 class TodoItemList extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
@@ -28,6 +55,6 @@ class TodoItemList extends Component {
             </div>
         );
     }
-}
+}*/
 
 export default TodoItemList;
